@@ -10,14 +10,54 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class slideUp {
     private DcMotor slideUp;
-    private boolean intialized = false;
+  //  private boolean intialized = false;
 
     public slideUp(HardwareMap hardwareMap) {
         slideUp = hardwareMap.get(DcMotor.class, "slideUp");
         slideUp.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public class upToHighBox implements Action {
+    public class Home implements Action {
+        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet){
+            if (!initialized){
+              slideUp.setPower(-1);
+              initialized = true;
+            }
+
+            double pos = slideUp.getCurrentPosition();
+            packet.put("slideUp pos", pos);
+            if (pos > 100.0){
+                return true;
+            }else {
+                slideUp.setPower(0);
+                return false;
+            }
+        }
+        public class HighBox implements Action {
+            private boolean initialized = false;
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet){
+                if (!initialized){
+                    slideUp.setPower(1);
+                    initialized = true;
+                }
+
+                double pos = slideUp.getCurrentPosition();
+                packet.put("slide pos",pos);
+                if (pos < 3000.0) {
+                    return true;
+                }else{}
+                slideUp.setPower(0);
+                return false;
+            }
+        }
+    }
+
+   /* public class upToHighBox implements Action {
 
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -66,6 +106,6 @@ public class slideUp {
             slideUp.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             return false;
         }
-    }
+    } */
 
 }
