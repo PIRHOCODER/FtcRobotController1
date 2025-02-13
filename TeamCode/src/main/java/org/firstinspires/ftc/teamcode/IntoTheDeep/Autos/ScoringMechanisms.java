@@ -72,7 +72,7 @@ public abstract class ScoringMechanisms extends LinearOpMode {
 
     void SequentialAction(
 
-    )
+    );
 
 
 }
