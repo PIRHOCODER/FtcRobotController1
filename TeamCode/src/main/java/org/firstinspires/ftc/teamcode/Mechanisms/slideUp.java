@@ -21,37 +21,98 @@ public class slideUp {
         private boolean initialized = false;
 
         @Override
-        public boolean run(@NonNull TelemetryPacket packet){
-            if (!initialized){
-              slideUp.setPower(-1);
-              initialized = true;
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
+                slideUp.setPower(-1);
+                initialized = true;
             }
 
             double pos = slideUp.getCurrentPosition();
             packet.put("slideUp pos", pos);
-            if (pos > 100.0){
+            if (pos > 100.0) {
                 return true;
-            }else {
+            } else {
                 slideUp.setPower(0);
                 return false;
             }
         }
-        public class HighBox implements Action {
-            private boolean initialized = false;
+    }
+    public class HighBox implements Action {
+        private boolean initialized = false;
 
-            @Override
-            public boolean run(@NonNull TelemetryPacket packet){
-                if (!initialized){
-                    slideUp.setPower(1);
-                    initialized = true;
-                }
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet){
+            if (!initialized){
+                slideUp.setPower(1);
+                initialized = true;
+            }
 
-                double pos = slideUp.getCurrentPosition();
-                packet.put("slide pos",pos);
-                if (pos < 3000.0) {
-                    return true;
-                }else{}
-                slideUp.setPower(0);
+            double pos = slideUp.getCurrentPosition();
+            packet.put("slide pos",pos);
+            if (pos < 3415) {
+                return true;
+            }else {
+                slideUp.setPower(0.0005);
+                return false;
+            }
+        }
+    }
+    public class LoxBox implements Action {
+        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet){
+            if (!initialized){
+                slideUp.setPower(1);
+                initialized = true;
+            }
+
+            double pos = slideUp.getCurrentPosition();
+            packet.put("slide pos",pos);
+            if (pos < 3415) {
+                return true;
+            }else {
+                slideUp.setPower(0.0005);
+                return false;
+            }
+        }
+    }
+    public class HighCham implements Action {
+        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet){
+            if (!initialized){
+                slideUp.setPower(1);
+                initialized = true;
+            }
+
+            double pos = slideUp.getCurrentPosition();
+            packet.put("slide pos",pos);
+            if (pos < 3415) {
+                return true;
+            }else {
+                slideUp.setPower(0.0005);
+                return false;
+            }
+        }
+    }
+    public class LowCham implements Action {
+        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet){
+            if (!initialized){
+                slideUp.setPower(1);
+                initialized = true;
+            }
+
+            double pos = slideUp.getCurrentPosition();
+            packet.put("slide pos",pos);
+            if (pos < 3415) {
+                return true;
+            }else {
+                slideUp.setPower(0.0005);
                 return false;
             }
         }
