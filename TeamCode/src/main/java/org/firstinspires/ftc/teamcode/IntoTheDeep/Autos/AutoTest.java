@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
-@Autonomous(name = "AutoRoadrunnerSlide")
+@Autonomous(name = "AutoTest")
 public class AutoTest extends LinearOpMode {
 
     private DcMotor slideUp;
@@ -22,9 +22,10 @@ public class AutoTest extends LinearOpMode {
         @Override
         public void runOpMode() {
             // instantiate your MecanumDrive at a particular pose.
-            Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
+            Pose2d initialPose = new Pose2d(-36, -65, Math.toRadians(90));
             MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
             TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
+
                     .strafeTo(new Vector2d(-48, -28));
 
         }
