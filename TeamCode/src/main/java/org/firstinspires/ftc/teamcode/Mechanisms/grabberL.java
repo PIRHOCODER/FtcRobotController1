@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class grabberL {
-    private Servo grabberL;
+    private final Servo grabberL;
 
     public grabberL(HardwareMap hardwareMap) {
         grabberL = hardwareMap.get(Servo.class, "grabberL");
@@ -22,8 +22,13 @@ public class grabberL {
 
 //close Low Grabber
     public class closeL implements Action {
+       // private boolean initialized = false;
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
+//            if (!initialized) {
+//                grabberL.setPosition(0);
+//                initialized = true;
+//            }
             grabberL.setPosition(0);
             return false;
         }
@@ -35,8 +40,13 @@ public class grabberL {
 
 //open Low Grabber
     public class openL implements Action {
+      //  private boolean initialized = false;
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
+//            if (!initialized) {
+//                grabberL.setPosition(0.5);
+//                initialized = true;
+//            }
             grabberL.setPosition(0.5);
             return false;
         }

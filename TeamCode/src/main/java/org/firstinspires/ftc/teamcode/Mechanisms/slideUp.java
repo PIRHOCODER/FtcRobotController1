@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class slideUp {
-    private DcMotor slideUp;
+    private final DcMotor slideUp;
 
     public slideUp(HardwareMap hardwareMap) {
         slideUp = hardwareMap.get(DcMotor.class, "slideUp");

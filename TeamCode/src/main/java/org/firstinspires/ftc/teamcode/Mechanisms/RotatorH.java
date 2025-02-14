@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class RotatorH {
-    private Servo RotatorH;
+    private final Servo RotatorH;
 
     public RotatorH(HardwareMap hardwareMap) {
         RotatorH = hardwareMap.get(Servo.class, "RotatorH");
@@ -22,8 +22,13 @@ public class RotatorH {
 
 //High Rotator rotate up
     public class Hup implements Action {
+        //private boolean initialized = false;
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
+//            if (!initialized) {
+//                RotatorH.setPosition(0.7);
+//                initialized = true;
+//            }
             RotatorH.setPosition(0.7);
             return false;
         }
@@ -35,8 +40,13 @@ public class RotatorH {
 
 //High Rotator rotate down
     public class Dogh implements Action {
+       // private boolean initialized = false;
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
+//            if (!initialized) {
+//                RotatorH.setPosition(0);
+//                initialized = true;
+//            }
             RotatorH.setPosition(0);
             return false;
         }

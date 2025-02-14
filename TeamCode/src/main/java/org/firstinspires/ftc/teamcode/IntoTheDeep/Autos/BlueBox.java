@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep.Autos;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -17,14 +19,13 @@ import org.firstinspires.ftc.teamcode.Mechanisms.RotatorL;
 import org.firstinspires.ftc.teamcode.Mechanisms.grabberH;
 import org.firstinspires.ftc.teamcode.Mechanisms.grabberL;
 import org.firstinspires.ftc.teamcode.Mechanisms.slideUp;
-
 @Config
 @Autonomous(name = "Blue_Box", group = "Autonomous")
 public class BlueBox extends LinearOpMode {
-   
+
     @Override
     public void runOpMode() {
-        Pose2d initialPose = new Pose2d(-36, 65, Math.toRadians(270 ));
+        Pose2d initialPose = new Pose2d(-36, 65, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         grabberH grabberH = new grabberH(hardwareMap);
         grabberL grabberL = new grabberL(hardwareMap);
@@ -32,6 +33,8 @@ public class BlueBox extends LinearOpMode {
         RotatorL RotatorL = new RotatorL(hardwareMap);
         LfrontSlide LfrontSlide = new LfrontSlide(hardwareMap);
         slideUp slideUp = new slideUp(hardwareMap);
+
+        ElapsedTime timer = new ElapsedTime();
 
         // vision here that outputs position
         //int visionOutputPosition = 1;
@@ -52,39 +55,60 @@ public class BlueBox extends LinearOpMode {
                 .strafeTo(new Vector2d(48, 12))
                 .build();
 */
-        // actions that need to happen on init
-        Actions.runBlocking(grabberH.closeH());
-        Actions.runBlocking(grabberL.closeL());
-        Actions.runBlocking(RotatorH.Dogh());
-        Actions.runBlocking(RotatorL.Lome());
-        Actions.runBlocking(LfrontSlide.inL());
 
+       /* TrajectoryActionBuilder tab = drive.actionBuilder(initialPose)
+                .strafeToSplineHeading(new Vector2d(-50, 56), Math.toRadians(315));
+        Action trajectoryActionClose = tab.endTrajectory().fresh()
+                .build();*/
+
+       // double waitingtime = 0;
+        // actions that need to happen on init
+
+        if (opModeInInit()) {
+            Actions.runBlocking(grabberH.closeH());
+            Actions.runBlocking(grabberL.closeL());
+            Actions.runBlocking(RotatorH.Dogh());
+            Actions.runBlocking(RotatorL.Lome());
+            Actions.runBlocking(LfrontSlide.inL());
+        }
         waitForStart();
 
         if (isStopRequested()) return;
 
-       ElapsedTime time = new ElapsedTime();
-       telemetry.addData("Time", time.seconds());
+        if (opModeIsActive()) {
+//            Actions.runBlocking(drive.actionBuilder(initialPose)
+//                    .strafeToSplineHeading(new Vector2d(-50, 56), Math.toRadians(315))
+//                    .build());
+           // Action trajectoryActionChosen = tab.build();
 
-        Actions.runBlocking(drive.actionBuilder(initialPose)
-                .strafeToSplineHeading(new Vector2d(-50, 56), Math.toRadians(315))
-                .build());
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        slideUp.HighBox(),
-                       // new SleepAction(0.5),
-                        RotatorH.Hup(),
-                        grabberH.openH(),
-                        //slideUp.HighBox(),
-                       // new SleepAction(0.5),
-                        RotatorH.Dogh(),
-                        //slideUp.HighBox(),
-                     //   new SleepAction(0.5),
-                        slideUp.Home()
-                        )
-        );
-
+            Actions.runBlocking(
+                    new SequentialAction(
+                            //trajectoryActionChosen,
+                            slideUp.HighBox(),
+                            //new SleepAction(0.3),
+                            RotatorH.Hup(),
+                            //new SleepAction(0.3),
+                            grabberH.openH(),
+                            //new SleepAction(0.3)
+                            RotatorH.Dogh()
+                            //new SleepAction(0.3),
+                            //slideUp.Home(),
+                            //trajectoryActionClose
+                    )
+            );
+        }
+            // Actions.runBlocking(slideUp.HighBox());
+        /*if (!waiting) {
+            Actions.runBlocking(slideUp.HighBox());
+            waiting = true;
+            waitingtime = time.seconds();
+        }*/
+/*
+            Actions.runBlocking(RotatorH.Hup());
+            Actions.runBlocking(grabberH.openH());
+            Actions.runBlocking(RotatorH.Dogh());
+            Actions.runBlocking(slideUp.Home());
+        }*/
 
         /*
         while (!isStopRequested() && !opModeIsActive()) {
@@ -117,5 +141,5 @@ public class BlueBox extends LinearOpMode {
                         trajectoryActionCloseOut
                 )
         ); */
+        }
     }
-}

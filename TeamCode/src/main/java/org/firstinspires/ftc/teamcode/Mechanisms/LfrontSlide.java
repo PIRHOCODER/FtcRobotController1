@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class LfrontSlide {
-    private Servo LfrontSlide;
+    private final Servo LfrontSlide;
 
     public LfrontSlide(HardwareMap hardwareMap) {
         LfrontSlide = hardwareMap.get(Servo.class, "LfrontSlide");

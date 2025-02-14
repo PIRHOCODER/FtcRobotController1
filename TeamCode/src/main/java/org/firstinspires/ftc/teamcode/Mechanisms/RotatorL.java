@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class RotatorL {
-    private Servo RotatorL;
+    private final Servo RotatorL;
 
     public RotatorL(HardwareMap hardwareMap) {
         RotatorL = hardwareMap.get(Servo.class, "RotatorL");
