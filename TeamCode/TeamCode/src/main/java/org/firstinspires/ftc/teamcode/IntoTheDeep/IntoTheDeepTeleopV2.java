@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -67,12 +66,12 @@ public class IntoTheDeepTeleopV2 extends OpMode {
         //Reset Motor Encoders
         slideUp.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideUp.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        slideUp.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Set motor directions (ensure motors are driving in correct direction)
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         leftRear.setDirection(DcMotor.Direction.REVERSE);
 
+        slideUp.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Initial servo position (grabbers close by default and rotator in the middle)
         grabberH.setPosition(0.002);
