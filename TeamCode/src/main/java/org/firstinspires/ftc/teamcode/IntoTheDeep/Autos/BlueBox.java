@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.IntoTheDeep.Autos;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.tuning.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Mechanisms.LfrontSlide;
@@ -21,7 +24,7 @@ public class BlueBox extends LinearOpMode {
    
     @Override
     public void runOpMode() {
-        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90));
+        Pose2d initialPose = new Pose2d(-36, 65, Math.toRadians(270 ));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         grabberH grabberH = new grabberH(hardwareMap);
         grabberL grabberL = new grabberL(hardwareMap);
@@ -53,27 +56,31 @@ public class BlueBox extends LinearOpMode {
         Actions.runBlocking(grabberH.closeH());
         Actions.runBlocking(grabberL.closeL());
         Actions.runBlocking(RotatorH.Dogh());
-        Actions.runBlocking(RotatorL.Lown());
+        Actions.runBlocking(RotatorL.Lome());
         Actions.runBlocking(LfrontSlide.inL());
 
         waitForStart();
 
         if (isStopRequested()) return;
 
-       // Action trajectoryAction = null;
-      //  Actions.runBlocking(trajectoryAction);
+       ElapsedTime time = new ElapsedTime();
+       telemetry.addData("Time", time.seconds());
 
-      //  trajectoryAction = tab.build();
+        Actions.runBlocking(drive.actionBuilder(initialPose)
+                .strafeToSplineHeading(new Vector2d(-50, 56), Math.toRadians(315))
+                .build());
+
         Actions.runBlocking(
                 new SequentialAction(
                         slideUp.HighBox(),
-                        new SleepAction(1),
+                       // new SleepAction(0.5),
                         RotatorH.Hup(),
-                        new SleepAction(1),
                         grabberH.openH(),
-                        new SleepAction(1),
+                        //slideUp.HighBox(),
+                       // new SleepAction(0.5),
                         RotatorH.Dogh(),
-                        new SleepAction(1),
+                        //slideUp.HighBox(),
+                     //   new SleepAction(0.5),
                         slideUp.Home()
                         )
         );

@@ -45,4 +45,16 @@ public class RotatorL {
     public Action Lown() {
         return new Lown();
     }
+
+    public class Lome implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            RotatorL.setPosition(0);
+            return false;
+        }
+    }
+
+    public Action Lome() {
+        return new Lome();
+    }
 }

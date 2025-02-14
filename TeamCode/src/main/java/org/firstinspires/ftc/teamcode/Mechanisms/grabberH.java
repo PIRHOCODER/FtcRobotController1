@@ -24,7 +24,7 @@ public class grabberH {
     public class closeH implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            grabberH.setPosition(0);
+            grabberH.setPosition(0.002);
             return false;
         }
     }
@@ -41,7 +41,6 @@ public class grabberH {
             return false;
         }
     }
-
     public Action openH() {
         return new openH();
     }
