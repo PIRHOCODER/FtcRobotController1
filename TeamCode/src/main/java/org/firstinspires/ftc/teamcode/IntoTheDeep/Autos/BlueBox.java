@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.IntoTheDeep.Autos;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -65,12 +66,15 @@ public class BlueBox extends LinearOpMode {
       //  trajectoryAction = tab.build();
         Actions.runBlocking(
                 new SequentialAction(
-                      //  trajectoryActionCloseOut,
-                        LfrontSlide.outL(),
-                        grabberH.openH(),
-                        grabberL.openL(),
+                        slideUp.HighBox(),
+                        new SleepAction(1),
                         RotatorH.Hup(),
-                        RotatorL.Lup()
+                        new SleepAction(1),
+                        grabberH.openH(),
+                        new SleepAction(1),
+                        RotatorH.Dogh(),
+                        new SleepAction(1),
+                        slideUp.Home()
                         )
         );
 

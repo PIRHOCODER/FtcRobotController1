@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class slideUp {
     private DcMotor slideUp;
-  //  private boolean intialized = false;
+    //  private boolean intialized = false;
 
     public slideUp(HardwareMap hardwareMap) {
         slideUp = hardwareMap.get(DcMotor.class, "slideUp");
@@ -37,87 +37,104 @@ public class slideUp {
             }
         }
     }
+    public Action Home(){
+        return new Home();
+    }
+
     public class HighBox implements Action {
         private boolean initialized = false;
 
         @Override
-        public boolean run(@NonNull TelemetryPacket packet){
-            if (!initialized){
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
                 slideUp.setPower(1);
                 initialized = true;
             }
 
             double pos = slideUp.getCurrentPosition();
-            packet.put("slide pos",pos);
+            packet.put("slide pos", pos);
             if (pos < 3415) {
                 return true;
-            }else {
+            } else {
                 slideUp.setPower(0.0005);
                 return false;
             }
         }
     }
-    public class LoxBox implements Action {
+    public Action HighBox(){
+        return new HighBox();
+    }
+
+    public class LowBox implements Action {
         private boolean initialized = false;
 
         @Override
-        public boolean run(@NonNull TelemetryPacket packet){
-            if (!initialized){
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
                 slideUp.setPower(1);
                 initialized = true;
             }
 
             double pos = slideUp.getCurrentPosition();
-            packet.put("slide pos",pos);
+            packet.put("slide pos", pos);
             if (pos < 3415) {
                 return true;
-            }else {
+            } else {
                 slideUp.setPower(0.0005);
                 return false;
             }
         }
     }
+    public Action LowBox(){
+        return new LowBox();
+    }
+
     public class HighCham implements Action {
         private boolean initialized = false;
 
         @Override
-        public boolean run(@NonNull TelemetryPacket packet){
-            if (!initialized){
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
                 slideUp.setPower(1);
                 initialized = true;
             }
 
             double pos = slideUp.getCurrentPosition();
-            packet.put("slide pos",pos);
+            packet.put("slide pos", pos);
             if (pos < 3415) {
                 return true;
-            }else {
+            } else {
                 slideUp.setPower(0.0005);
                 return false;
             }
         }
     }
-    public class LowCham implements Action {
+    public Action HighCham(){
+        return new HighCham();
+    }
+
+    /*public class LowCham implements Action {
         private boolean initialized = false;
 
         @Override
-        public boolean run(@NonNull TelemetryPacket packet){
-            if (!initialized){
+        public boolean run(@NonNull TelemetryPacket packet) {
+            if (!initialized) {
                 slideUp.setPower(1);
                 initialized = true;
             }
 
             double pos = slideUp.getCurrentPosition();
-            packet.put("slide pos",pos);
+            packet.put("slide pos", pos);
             if (pos < 3415) {
                 return true;
-            }else {
+            } else {
                 slideUp.setPower(0.0005);
                 return false;
             }
         }
     }
-
+     */
+}
    /* public class upToHighBox implements Action {
 
         @Override
@@ -169,4 +186,4 @@ public class slideUp {
         }
     } */
 
-}
+
