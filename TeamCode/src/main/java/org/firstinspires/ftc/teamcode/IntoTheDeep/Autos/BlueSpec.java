@@ -8,5 +8,5 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Config
 @Autonomous(name = "BLUE_TEST_AUTO_PIXEL", group = "Autonomous")
 public class BlueSpec extends LinearOpMode {
-
+0
 }*/
