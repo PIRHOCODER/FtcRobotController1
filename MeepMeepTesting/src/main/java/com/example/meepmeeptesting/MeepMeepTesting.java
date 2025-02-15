@@ -22,9 +22,12 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-36, -65,Math.toRadians(90)))
-                        .strafeTo(new Vector2d(-48, -28))
-                        .build());
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(36, 65,Math.toRadians(270)))
+                .strafeToSplineHeading(new Vector2d(50, 56), Math.toRadians(225))
+                        .strafeToSplineHeading(new Vector2d(50,48), Math.toRadians(260))
+
+                .build()
+        );
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
                 .setDarkMode(true)

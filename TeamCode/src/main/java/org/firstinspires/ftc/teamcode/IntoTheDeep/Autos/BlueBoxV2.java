@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -28,23 +29,28 @@ public class BlueBoxV2 extends LinearOpMode {
 
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         Pose2d initialPose = new Pose2d(-36, 65, Math.toRadians(270));
+        Pose2d stage2 = new Pose2d(-50, 56, Math.toRadians(315));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         slideUp slideup = new slideUp(hardwareMap);
         LfrontSlide lfrontSlide = new LfrontSlide(hardwareMap);
         RotatorH rotatorH = new RotatorH(hardwareMap);
         RotatorL rotatorL = new RotatorL(hardwareMap);
-        grabberH grabberH = new grabberH(hardwareMap);
-        grabberL grabberL = new grabberL(hardwareMap);
+        grabberH GrabberH = new grabberH(hardwareMap);
+        grabberL GrabberL = new grabberL(hardwareMap);
 
         telemetry.addData("Starting Position", 1);
         telemetry.update();
-        Actions.runBlocking(grabberH.closeH());
-        Actions.runBlocking(grabberL.closeL());
-        Actions.runBlocking(rotatorH.Dogh());
-        Actions.runBlocking(rotatorL.Lome());
-        Actions.runBlocking(lfrontSlide.HoL());
+        Actions.runBlocking(
+                new ParallelAction(
+                        GrabberH.closeH(),
+                        GrabberL.closeL(),
+                        rotatorH.Dogh(),
+                        rotatorL.Lome(),
+                        lfrontSlide.HoL()
+                )
+        );
         waitForStart();
 
         if (isStopRequested()) return;
@@ -65,44 +71,41 @@ public class BlueBoxV2 extends LinearOpMode {
                 )
 
         );
-        //Actions.runBlocking((
-               // new SleepAction(0.5)
-        //));
+        Actions.runBlocking(
+                new SleepAction(2)
+        );
         Actions.runBlocking(
                 new SequentialAction(
                         slideup.HighBox(),
                         rotatorH.Hup()
-                )
-        );
-        Actions.runBlocking((
+                ));
+        Actions.runBlocking(
                 new SleepAction(1)
-        ));
+                );
         Actions.runBlocking(
                 new SequentialAction(
-                        grabberH.openH()
-                )
-        );
+                        GrabberH.openH()
+                ));
         Actions.runBlocking(
                 new SleepAction(1)
-        );
+                );
         Actions.runBlocking(
                 new SequentialAction(
                         rotatorH.Dogh()
-                )
-        );
+                ));
         Actions.runBlocking(
-                new SleepAction(0.75)
+                new SleepAction(1)
         );
 
         Actions.runBlocking(
-                new ParallelAction(
+                new SequentialAction(
                         rotatorH.Dogh(),
                         slideup.Home()
                 )
         );
         Actions.runBlocking(
-                new ParallelAction(drive.actionBuilder(initialPose)
-                        .turnTo(310)
+                new ParallelAction(drive.actionBuilder(stage2)
+                        .strafeToSplineHeading(new Vector2d(-50,48), Math.toRadians(280))
                         .build()
                 )
         );
