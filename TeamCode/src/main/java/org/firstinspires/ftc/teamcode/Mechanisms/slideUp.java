@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class slideUp {
-    private final DcMotor slideUp;
+    private DcMotor slideUp;
 
     public slideUp(HardwareMap hardwareMap) {
         slideUp = hardwareMap.get(DcMotor.class, "slideUp");
@@ -54,10 +54,10 @@ public class slideUp {
 
             double pos = slideUp.getCurrentPosition();
             packet.put("slide pos", pos);
-            if (pos < 3415) {
+            if (pos < 3420) {
                 return true;
             } else {
-                slideUp.setPower(0.0008);
+                slideUp.setPower(0);
                 return false;
             }
         }

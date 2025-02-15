@@ -34,7 +34,7 @@ public class BlueBox extends LinearOpMode {
         LfrontSlide LfrontSlide = new LfrontSlide(hardwareMap);
         slideUp slideUp = new slideUp(hardwareMap);
 
-        ElapsedTime timer = new ElapsedTime();
+        //ElapsedTime timer = new ElapsedTime();
 
         // vision here that outputs position
         //int visionOutputPosition = 1;
@@ -83,20 +83,51 @@ public class BlueBox extends LinearOpMode {
 
             Actions.runBlocking(
                     new SequentialAction(
-                            //trajectoryActionChosen,
-                            slideUp.HighBox(),
-                            //new SleepAction(0.3),
-                            RotatorH.Hup(),
-                            //new SleepAction(0.3),
-                            grabberH.openH(),
-                            //new SleepAction(0.3)
-                            RotatorH.Dogh()
-                            //new SleepAction(0.3),
-                            //slideUp.Home(),
-                            //trajectoryActionClose
+                            new InstantAction(() -> {
+                                slideUp.HighBox();
+                                telemetry.addData("RotatorH","Moving Up");
+                                telemetry.update();
+                            }),
+                            new InstantAction(() -> {
+                                RotatorH.Hup();
+                                telemetry.addData("RotatorH","Moving Up");
+                                telemetry.update();
+                            }),
+                            new InstantAction(() -> {
+                                grabberH.openH();
+                                telemetry.addData("GrabberH","Opened");
+                                telemetry.update();
+                            }),
+                            new InstantAction(() -> {
+                                grabberH.closeH();
+                                telemetry.addData("GrabberH", "Opened");
+                                telemetry.update();
+                            })
                     )
             );
+
+          /*  Actions.runBlocking((
+                    new SleepAction(2)));
+            Actions.runBlocking(
+                    new SequentialAction(
+                            RotatorH.Hup()));
+            Actions.runBlocking(
+                    new SleepAction(2));
+            Actions.runBlocking(
+                    new SequentialAction(
+                            grabberH.openH()));
+            Actions.runBlocking((
+                    new SleepAction(2)));
+            Actions.runBlocking((
+                    new SequentialAction(
+                            RotatorH.Dogh())
+            ));
+            Actions.runBlocking((
+                    new SleepAction(2)));
+            Actions.runBlocking((
+                            slideUp.Home()));*/
         }
+
             // Actions.runBlocking(slideUp.HighBox());
         /*if (!waiting) {
             Actions.runBlocking(slideUp.HighBox());

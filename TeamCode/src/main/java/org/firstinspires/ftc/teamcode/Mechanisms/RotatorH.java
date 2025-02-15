@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class RotatorH {
-    private final Servo RotatorH;
+    private Servo RotatorH;
 
     public RotatorH(HardwareMap hardwareMap) {
         RotatorH = hardwareMap.get(Servo.class, "RotatorH");
@@ -33,7 +33,6 @@ public class RotatorH {
             return false;
         }
     }
-
     public Action Hup() {
         return new Hup();
     }

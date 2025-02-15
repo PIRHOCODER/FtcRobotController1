@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class grabberL {
-    private final Servo grabberL;
+    private Servo grabberL;
 
     public grabberL(HardwareMap hardwareMap) {
         grabberL = hardwareMap.get(Servo.class, "grabberL");

@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class RotatorL {
-    private final Servo RotatorL;
+    private Servo RotatorL;
 
     public RotatorL(HardwareMap hardwareMap) {
         RotatorL = hardwareMap.get(Servo.class, "RotatorL");
@@ -29,9 +29,9 @@ public class RotatorL {
         }
     }
 
-    public Action Lup() {
-        return new Lup();
-    }
+    //public Action Lup() {
+     //   return new Lup();
+    //}
 
 //Low Rotator rotate down
     public class Lown implements Action {
