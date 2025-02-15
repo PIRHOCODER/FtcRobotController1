@@ -32,15 +32,28 @@ public class BlueBoxV2 extends LinearOpMode {
         Pose2d initialPose = new Pose2d(-36, 65, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         slideUp slideup = new slideUp(hardwareMap);
+        LfrontSlide lfrontSlide = new LfrontSlide(hardwareMap);
         RotatorH rotatorH = new RotatorH(hardwareMap);
+        RotatorL rotatorL = new RotatorL(hardwareMap);
         grabberH grabberH = new grabberH(hardwareMap);
+        grabberL grabberL = new grabberL(hardwareMap);
 
         telemetry.addData("Starting Position", 1);
         telemetry.update();
+        Actions.runBlocking(grabberH.closeH());
+        Actions.runBlocking(grabberL.closeL());
+        Actions.runBlocking(rotatorH.Dogh());
+        Actions.runBlocking(rotatorL.Lome());
+        Actions.runBlocking(lfrontSlide.HoL());
         waitForStart();
 
         if (isStopRequested()) return;
 
+        /*Actions.runBlocking(
+                drive.actionBuilder(initialPose)
+                        .afterTime(1, slideup.HighBox())
+                        .build()
+        ); */
         Actions.runBlocking(
                 new ParallelAction(drive.actionBuilder(initialPose)
                         .strafeToSplineHeading(new Vector2d(-50, 56), Math.toRadians(315))
@@ -49,14 +62,15 @@ public class BlueBoxV2 extends LinearOpMode {
                                 slideup.HighBox()
 
                         )
-
                 )
+
         );
-        Actions.runBlocking((
-                new SleepAction(2)
-        ));
+        //Actions.runBlocking((
+               // new SleepAction(0.5)
+        //));
         Actions.runBlocking(
                 new SequentialAction(
+                        slideup.HighBox(),
                         rotatorH.Hup()
                 )
         );
@@ -82,10 +96,16 @@ public class BlueBoxV2 extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        grabberH.closeH()
+                        rotatorH.Dogh(),
+                        slideup.HighBox()
                 )
         );
-
+        Actions.runBlocking(
+                new ParallelAction(drive.actionBuilder(initialPose)
+                        .
+                )
+        );
+        // Mr.lanny's code
         /*Actions.runBlocking(
                 drive.actionBuilder(initialPose)
                         .strafeToSplineHeading(new Vector2d(-9,46), Math.toRadians(-90))

@@ -34,10 +34,21 @@ public class LfrontSlide {
     }
 
 //in Low Slide
-    public class inL implements Action {
+    public class HoL implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             LfrontSlide.setPosition(0);
+            return false;
+        }
+    }
+
+    public Action HoL() {
+        return new HoL();
+    }
+    public class inL implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            LfrontSlide.setPosition(0.03);
             return false;
         }
     }
