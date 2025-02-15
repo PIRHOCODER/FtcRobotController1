@@ -91,18 +91,19 @@ public class BlueBoxV2 extends LinearOpMode {
                 )
         );
         Actions.runBlocking(
-                new SleepAction(1)
+                new SleepAction(0.75)
         );
 
         Actions.runBlocking(
-                new SequentialAction(
+                new ParallelAction(
                         rotatorH.Dogh(),
-                        slideup.HighBox()
+                        slideup.Home()
                 )
         );
         Actions.runBlocking(
                 new ParallelAction(drive.actionBuilder(initialPose)
-                        .
+                        .turnTo(310)
+                        .build()
                 )
         );
         // Mr.lanny's code
